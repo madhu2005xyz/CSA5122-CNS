@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+
+void monoalphabeticSubstitution(char message[], char key[]) {
+    int i;
+
+    for (i = 0; message[i] != '\0'; ++i) {
+        if (isalpha(message[i])) {
+          
+            char caseOffset = isupper(message[i]) ? 'A' : 'a';
+
+        
+            message[i] = key[message[i] - caseOffset];
+        }
+    }
+}
+
+int main() {
+    char message[100];
+    char key[26];
+
+    printf("Enter a message: ");
+    fgets(message, sizeof(message), stdin);
+
+    printf("Enter the substitution key (26 unique letters): ");
+    fgets(key, sizeof(key), stdin);
+
+    
+    if (strlen(message) > 0 && message[strlen(message) - 1] == '\n') {
+        message[strlen(message) - 1] = '\0';
+    }
+
+    if (strlen(key) > 0 && key[strlen(key) - 1] == '\n') {
+        key[strlen(key) - 1] = '\0';
+    }
+
+  
+    if (strlen(key) != 26) {
+        printf("Error: Key must contain 26 unique letters.\n");
+        return 1; // Exit with an error code
+    }
+
+    
+    monoalphabeticSubstitution(message, key);
+printf("Encrypted Message: %s\n", message);
+
+    return 0;
+}
