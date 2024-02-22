@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <string.h>
+
+
+void caesarCipher(char message[], int key) {
+    int i;
+
+    for (i = 0; message[i] != '\0'; ++i) {
+        if (message[i] >= 'A' && message[i] <= 'Z') {
+            message[i] = ((message[i] - 'A' + key) % 26) + 'A';
+        } else if (message[i] >= 'a' && message[i] <= 'z') {
+            message[i] = ((message[i] - 'a' + key) % 26) + 'a';
+        }
+    }
+}
+
+int main() {
+    char message[100];
+    int key;
+
+    printf("Enter a message: ");
+    fgets(message, sizeof(message), stdin);
+
+    
+    if (strlen(message) > 0 && message[strlen(message) - 1] == '\n') {
+        message[strlen(message) - 1] = '\0';
+    }
+
+    for (key = 1; key <= 25; ++key) {
+        char encryptedMessage[100];
+
+      
+        strcpy(encryptedMessage, message);
+
+        // Encrypt the message using the current key
+        caesarCipher(encryptedMessage, key);
+        printf("Key %d: %s\n", key, encryptedMessage);
+    }
+
+    return 0;
+}
